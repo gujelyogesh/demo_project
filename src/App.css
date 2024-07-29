@@ -1,0 +1,8 @@
+.py-24 {
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+}
+button:disabled{
+background-color: grey;
+color: black;
+}
