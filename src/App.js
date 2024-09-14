@@ -8,6 +8,7 @@ import AllProduct from './component/all product/AllProduct.js';
 import Cart from './modules/Cart.js';
 import Contact from './component/Contact.js';
 import Addtocard from './component/Addtocard.js';
+import About from './component/About.js';
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
         <Route path ="/cart" element = {<Cart />} />
         <Route path = "/contact" element = {<Contact />} />
         <Route path = "/addtocard/:id" element = {<Addtocard/>} />
+        <Route path = "/about" element = {<About />} />
         </Routes> 
       </div>
     </>
