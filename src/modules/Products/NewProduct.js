@@ -26,7 +26,7 @@ const NewProduct = () => {
         if(item.id === product.id){
           return{
             ...item,
-            quantity:item.quantity+1;
+            quantity:item.quantity+1
           }
         }
         return item
