@@ -60,6 +60,6 @@ const  About = () =>{
             </section>
             <Footer/>
         </>
-    )
+    ) 
     }
     export default About;
