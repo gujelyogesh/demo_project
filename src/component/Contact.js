@@ -1,6 +1,18 @@
 import React from "react";
 
 import { TECarousel, TECarouselItem } from "tw-elements-react";
+
+
+import { Pagination,  A11y, Autoplay } from 'swiper/modules';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/a11y'
+import 'swiper/css/pagination';
+
+import 'swiper/css/autoplay';
  
 export default function Contact() {
   return (
@@ -163,6 +175,87 @@ export default function Contact() {
           </TECarouselItem>
         </div>
       </TECarousel>
+     
+
+  <Swiper
+      // install Swiper modules
+      modules={[ Pagination,A11y,Autoplay]}
+      spaceBetween={50}
+      slidesPerView={3}
+     
+      autoplay= {{delay:5000}}
+      pagination={{ clickable: true }}
+      // scrollbar={{ draggable: true }}
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log('slide change')}
+    >
+      <SwiperSlide>
+        <h1>this is heading 1</h1>
+        <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide><h1>this is heading 2</h1>
+      <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide><h1>this is heading 3</h1>
+      <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide>
+        <h1>this is heading 4</h1>
+        <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide><h1>this is heading 5</h1>
+      <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide><h1>this is heading 6</h1> 
+      <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide><h1>this is heading 7</h1>
+      <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide><h1>this is heading 8</h1>
+      <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      <SwiperSlide><h1>this is heading 9</h1>
+      <img
+              src="/images/img.webp"
+              className="block w-full"
+              alt="..."
+            />
+      </SwiperSlide>
+      
+    </Swiper>
       </>
   );
 } 

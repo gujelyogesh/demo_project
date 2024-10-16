@@ -1,8 +1,10 @@
 import React from "react";
-import Footer from "./Footer";
+import Footer from "./Footer/Footer";
+import Header from "./Header";
 const  About = () =>{
     return(
         <>
+        <Header/>
         <section id="blog" className="blog" >
                 <div className="container mx-auto">
                     <div className="section-header">
@@ -10,7 +12,7 @@ const  About = () =>{
                         <p>Always upto date with our latest News and Articles </p>
                     </div>
                     <div className="blog-content">
-                        <div className="row">
+                        <div className="rows">
                             <div className="col-md-4">
                                 <div className="single-blog-item">
                                     <div className="single-blog-item-img">

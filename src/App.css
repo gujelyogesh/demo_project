@@ -40,16 +40,15 @@ color: black;
 .single-blog-item:hover{
     box-shadow: 0 10px 20px rgba(21,19,19,.4);
 }
-.row {
+.rows {
   display: flex;
   gap: 20px;
  
 }
 img {
-  /* max-width: 100%; */
   height: auto;
   width: 100%;
-}
+} 
 .section-header {
   text-align: center;
 }
@@ -61,3 +60,13 @@ img {
   font-weight: bold;
   padding-bottom: 5px;
 }
+/* .img img{
+  width: 183px;
+} */
+ .error{
+  color: red;
+ }
+
+ .float{
+  float:right;
+ }

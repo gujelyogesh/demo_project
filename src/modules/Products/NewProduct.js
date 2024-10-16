@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from "../../component/Footer";
+import Footer from "../../component/Footer/Footer";
+import Header from "../../component/Header";
+
 const NewProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate()
   const [product, setProduct] = useState([""])
-  
+  const [disabled, setDisabled] = useState(false);
   useEffect( () => {
     fetchapi();
  }, [])
+
+ 
+
   const fetchapi = async () => {
     const response = await fetch(`https://fakestoreapi.com/products/${id}`)
     const result = await response.json()
@@ -18,7 +23,7 @@ const NewProduct = () => {
     setProduct(result)
   }
 
-  const handlecard =(product) =>{
+  const handlecard =async(product) =>{
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const isproductExit = cart.find(item =>item.id === product.id)
     if(isproductExit){
@@ -26,19 +31,15 @@ const NewProduct = () => {
         if(item.id === product.id){
           return{
             ...item,
-            quantity:item.quantity+1
+            quentity:item.quentity+1
+           
           }
         }
         return item
       })
       localStorage.setItem('cart',JSON.stringify(updatecart))
-     }else{
-       localStorage.setItem('cart',JSON.stringify([...cart,{...product, quantity:1}]))
-        toast("ADD Product")
-        setTimeout(()=>{
-          navigate('/cart')
-        },2000)
     }
+    
     // if(redirect){
     //     navigate('/cart')
     //     // toast("Card")
@@ -49,6 +50,8 @@ const NewProduct = () => {
   
   !Object.keys(product).length > 0 && <div>Product Not Found</div>
   return (
+    <>  
+      <Header/>
     <section className="text-gray-600 body-font overflow-hidden">
       <ToastContainer />
       <div className="container px-5 py-24 mx-auto">
@@ -121,9 +124,8 @@ const NewProduct = () => {
             </div>
             <div className="flex justify-between items-center">
               <span className="title-font font-medium text-2xl text-gray-900">${product?.price}</span>
-              <div className="flex">
-              <button className="flex ml-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Buy it now</button>
-              <button className="flex ml-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={(()=>{handlecard(product)})}>Add to cart</button>
+              <div className="">
+              <button className="flex ml-3 bg-indigo-500 border-0 text-center text-white py-4 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={(()=>{handlecard(product)})} disabled = {disabled}>{disabled ? "Added" : "Add to Card"}</button>
               </div>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -134,8 +136,10 @@ const NewProduct = () => {
           </div>
         </div>
       </div>
-      <Footer />
+    <Footer/>
     </section>
+    </>
+
 
   )
 }
