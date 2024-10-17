@@ -11,10 +11,10 @@ const Header = () => {
                     <span className="ml-3 text-xl">Ecommerce</span>
                 </a>
                 <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center mr-10 px-8">
-                    <Link to ={"/"} className="mr-5 hover:text-gray-900">Home</Link>
-                    <Link to ={"/allproduct"} className="mr-5 hover:text-gray-900">Product</Link>
-                    <Link to = {"/about"} className="mr-5 hover:text-gray-900">About</Link>
-                    <Link to = {"/contact"} className="mr-5 hover:text-gray-900">Contact</Link>
+                    <Link to ="/" className="mr-5 hover:text-gray-900">Home</Link>
+                    <Link to ="/allproduct" className="mr-5 hover:text-gray-900">Product</Link>
+                    <Link to ="/about" className="mr-5 hover:text-gray-900">About</Link>
+                    <Link to ="/cleaning" className="mr-5 hover:text-gray-900">Cleaning</Link>
                 </nav>
                 <Link to ="/cart"><button className="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded text-base  md:mt-0">Go to Cart
                     
