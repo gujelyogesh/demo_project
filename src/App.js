@@ -4,7 +4,7 @@ import './App.css';
 import Home from './modules/Home/Home.js';
 import { Routes,Route } from 'react-router-dom';
 import NewProduct from './modules/Products/NewProduct.js';
-import AllProduct from './component/all product/AllProduct.js';
+import AllProduct from './component/AllProduct.js';
 import Cart from './modules/Cart.js';
 import Addtocard from './component/Addtocard.js';
 import About from './component/About.js';
