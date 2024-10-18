@@ -9,42 +9,35 @@ const NewProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate()
   const [product, setProduct] = useState([""])
-  const [disabled, setDisabled] = useState(false);
+  const [cartData, setCartData]  = useState([]);
+ 
   useEffect( () => {
     fetchapi();
  }, [])
 
- 
+ useEffect(() => {
+  const cartValue = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+  setCartData([...cartData, ...cartValue]);
+},[])
 
+// create fetchapi
   const fetchapi = async () => {
     const response = await fetch(`https://fakestoreapi.com/products/${id}`)
     const result = await response.json()
     console.log(result, "res")
     setProduct(result)
   }
-
+// create handlecard
   const handlecard =async(product) =>{
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const isproductExit = cart.find(item =>item.id === product.id)
-    if(isproductExit){
-      const updatecart = cart.map(item =>{
-        if(item.id === product.id){
-          return{
-            ...item,
-            quentity:item.quentity+1
-           
-          }
-        }
-        return item
-      })
-      localStorage.setItem('cart',JSON.stringify(updatecart))
-    }
+    const setCart = [{...product, quantity: 1}];
+    await setCartData([...cartData, ...setCart]);
+    await localStorage.setItem('cart', JSON.stringify([...cartData, ...setCart]));
+    toast("Added Product")
+      setTimeout(()=>{
+        navigate('/cart')
+
+      },3000)
     
-    // if(redirect){
-    //     navigate('/cart')
-    //     // toast("Card")
-      
-    // }
 
   }
   
@@ -124,8 +117,8 @@ const NewProduct = () => {
             </div>
             <div className="flex justify-between items-center">
               <span className="title-font font-medium text-2xl text-gray-900">${product?.price}</span>
-              <div className="">
-              <button className="flex ml-3 bg-indigo-500 border-0 text-center text-white py-4 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={(()=>{handlecard(product)})} disabled = {disabled}>{disabled ? "Added" : "Add to Card"}</button>
+              <div className="w-50">
+              <button className="flex ml-3 bg-indigo-500 border-0 text-center text-white py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={(()=>{handlecard(product)})}>Add to card</button>
               </div>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
