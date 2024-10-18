@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
-import { useNavigate, } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
+
 const Cart = () => {
   const navigate = useNavigate()
   const [cart, setCart] = useState([]);
@@ -85,12 +86,14 @@ const Cart = () => {
   }
 
   //  Back card
-  const BackProduct = () => {
-    navigate("/allproduct")
-  }
+  // const BackProduct = () => {
+  //   navigate("/allproduct")
+  // }
 
 
   return (
+    <>
+ 
     <div className="container mx-auto mt-10">
       <div className="sm:flex shadow-md my-10">
         <div className="  w-full  sm:w-3/4 bg-white px-10 py-10">
@@ -118,19 +121,19 @@ const Cart = () => {
                       class="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
                       <div class="img-box"><img src={carts?.image} alt={carts?.title} class="xl:w-[140px]" /></div>
                       <div class="pro-data w-full max-w-sm ">
-                        <h5 class="font-semibold text-xl leading-8 text-black max-[550px]:text-center">{carts?.title}
+                        <h5 class="font-medium text-black max-[500px]:text-center">{carts?.title}
                         </h5>
                         <p
-                          class="font-normal text-lg leading-8 text-gray-500 my-2 min-[550px]:my-3 max-[550px]:text-center capitalize">
+                          class="font-normal text-md leading-6 text-gray-500  min-[500px] max-[500px]:text-center">
                           {carts?.category} </p>
-                        <h6 class="font-medium text-lg leading-8 text-indigo-600  max-[550px]:text-center">{carts?.price}</h6>
+                        <h6 class="font-medium text-indigo-600 :text-center">{carts?.price}</h6>
                         <button type="button" className="font-semibold hover:text-red-500 text-gray-500 text-xs" onClick={() => deleteItem(carts?.id)}>Remove</button>
                       </div>
                     </div>
-                    <div class="flex items-center flex-col min-[560px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2">
-                      <div class="flex items-center w-full mx-auto justify-center">
-                        <button class="group rounded-l-full px-2 py-[15px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50" >
-                          <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
+                    <div class="flex items-center flex-col flex-row ">
+                      <div class="flex items-center w-full mx-auto">
+                        <button class="group flex" >
+                          <svg class="stroke-gray-900 group-hover:stroke-black"
                             xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                             fill="none" onClick={() => handleDec(carts?.id)}>
                             <path d="M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round" />
@@ -140,10 +143,10 @@ const Cart = () => {
                             stroke-linecap="round" /> */}
                           </svg>
                         </button>
-                        <input type="num" className="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[116px] min-w-[60px] placeholder:text-gray-900 py-[12px] text-center bg-transparent"
-                          value={carts?.quantity} />
-                        <button class="group rounded-r-full px-2 py-[15px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50" >
-                          <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
+                        <span className="text-center w-50"><input type="num" className="font-semibold w-50 text-center"
+                          value={carts?.quantity} /></span>
+                        <button class="group flex" >
+                          <svg class="stroke-gray-900 group-hover:stroke-black"
                             xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                             fill="none" onClick={() => handleInc(carts?.id)}>
                             <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-width="1.6"
@@ -155,44 +158,45 @@ const Cart = () => {
                           </svg>
                         </button>
                       </div>
-                      <h6 class="font-manrope font-bold text-2xl leading-9 text-black w-full max-w-[176px] text-center">
-                        ${carts?.price} <span class="text-sm text-gray-300 ml-3 lg:hidden whitespace-nowrap">(Delivery
-                          Charge)</span></h6>
+                      <h6 class="font-manrope font-bold text-black w-full text-center">
+                        ${(carts?.price).toFixed(2)} </h6>
+                        {/* <span class="text-sm text-gray-300 ml-3 lg:hidden whitespace-nowrap">(Delivery
+                          Charge)</span> */}
                       <h6
-                        class="text-indigo-600 font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
-                        ${(carts?.price * carts?.quantity)}</h6>
+                        class="text-indigo-600 font-manrope font-bold w-full text-center">
+                        ${(carts?.price * carts?.quantity).toFixed(2)}</h6>
                     </div>
                   </div>
                 )
               })
             }
           </div>
-          <a href="" className="flex font-semibold text-indigo-600 text-sm mt-10" onClick={BackProduct}>
+          <Link to ="/" className="flex font-semibold text-indigo-600 text-sm mt-10">
             <svg className="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
               <path
                 d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
             </svg>
-            Back Product
-          </a>
+            Back HomePage
+          </Link>
         </div>
         <div id="summary" className=" w-full   sm:w-1/4   md:w-1/2     px-8 py-10">
           <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
           <div className="flex justify-between mt-10 mb-5">
-            <span className="font-semibold text-sm uppercase">Items {cart?.length}</span>
-            <span className="font-semibold text-sm">{total}</span>
+            <span className="font-semibold text-sm uppercase">Items {(cart?.length)}</span>
+            <span className="font-semibold text-sm">{(total).toFixed(2)}</span>
           </div>
           <div>
-            <label className="font-medium inline-block mb-3 text-sm uppercase">
+            <label className="font-medium inline-block  text-sm uppercase">
               Shipping
             </label>
-            <select className="block p-2 text-gray-600 w-full text-sm">
+            <select className="block text-gray-600 w-full text-sm">
               <option>Standard shipping - $10.00</option>
             </select>
           </div>
-          <div className="py-10">
+          <div className="py-8">
             <label
               for="promo"
-              className="font-semibold inline-block mb-3 text-sm uppercase"
+              className="font-semibold inline-block mb-1 text-sm uppercase"
             >
               Promo Code
             </label>
@@ -209,7 +213,7 @@ const Cart = () => {
           <div className="border-t mt-8">
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Total cost</span>
-              <span>{(total + 10)}</span>
+              <span>{(total + 10).toFixed(2)}</span>
             </div>
             <button className="bg-indigo-500 font-semibold  py-3 text-sm text-white uppercase w-full" onClick={checkout} disabled = {data}>
               Checkout
@@ -218,6 +222,8 @@ const Cart = () => {
         </div>
       </div>
     </div>
+    
+    </>
   )
 }
 export default Cart;
