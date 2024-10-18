@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Hero from "../../component/Hero";
 import Featurescard from "../../component/Featurescard";
 import Statics from "../../component/Statics";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../component/Header";
 import Footer from "../../component/Footer/Footer";
 import { A11y, Autoplay } from 'swiper/modules';
@@ -12,12 +12,27 @@ import { CiStar } from "react-icons/ci";
 import 'swiper/css';
 import 'swiper/css/a11y'
 import 'swiper/css/autoplay'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FiSearch } from "react-icons/fi";
 
 const Home = () => {
+   const navigate = useNavigate()
     // using useState
     const [product, setProduct] = useState([])
     const [SearchData, setSearchData] = useState([])
+    const [carddata, setCardData]  =useState ([]);
+
+
+
+
+// create useEffect 
+useEffect(()=>{
+    const cartvalue = localStorage.getItem("cart")?JSON.parse(localStorage.getItem('cart')):[]
+    // console.log(cartvalue,"value");
+     setCardData([...carddata, ...cartvalue])
+
+},[])
 
     // create function fetchApi
     const FatchApi = async () => {
@@ -26,7 +41,7 @@ const Home = () => {
             const result = await response.json()
             setProduct(result)
             setSearchData(result)
-            console.log(result)
+            // console.log(result)
         } catch (err) {
             console.log(err)
         }
@@ -36,13 +51,24 @@ const Home = () => {
     useEffect(() => {
         FatchApi()
     }, [])
-
-    const FilterData = (e) => {
+    // create filterData
+     const FilterData = (e) => {
         const myfilter = e.target.value;
         const result = product.filter(item => {
             return item.category.toLowerCase().includes(myfilter) || item.title.toLowerCase().includes(myfilter)
         })
         setSearchData(result);
+    }
+
+    // create handlecard
+    const handlecard = async(products)=>{
+        const mycard = [{...products, quantity:1}];
+        // console.log(mycard,"card");
+        await setCardData([...carddata, ...mycard]);
+        await localStorage.setItem('cart', JSON.stringify([...carddata, ...mycard]));
+        toast("Added Product")
+      
+
     }
     return (
         <>
@@ -52,8 +78,15 @@ const Home = () => {
                 <h2 className="text-xs text-purple-500 tracking-widest font-medium title-font mb-1">PRODUCTS</h2>
                 <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 pb-8">MOST POPULAR PRODUCTS</h1>
             </div>
-            <div className="mx-5">
-                <input type="text" placeholder=" Search Product" className="mx-4 w-25 my-2 py-2 text form-control" onChange={FilterData} />
+            <ToastContainer />
+            <div className="container py-3">
+              <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center px-4 pointer-events-none">
+        <span className=""><FiSearch  className="fs-5" /></span>
+        </div>
+        <input type="search" placeholder ="Search Product"className="block w-full py-3 px-5 border border-light-300 rounded-lg form-control bg-light " onChange={FilterData} />
+        
+    </div>
             </div>
             <section className="text-gray-600 body-font">
                 <div className="container mx-auto">
@@ -62,6 +95,7 @@ const Home = () => {
                             SearchData.length > 0 && SearchData.map((products) => {
                                 // console.log(products, "product")
                                 const { id, title, price, description, category, image } = products
+                                const cardId = carddata.find(cartItem => cartItem.id === id);
                                 return (
                                     <>
                                         <div className="lg:w-1/4 md:w-1/2 p-4 w-full border border-opacity-50 mb-4 cursor-pointer">
@@ -72,28 +106,23 @@ const Home = () => {
                                                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1 uppercase">{category}</h3>
                                                 <h2 className="text-gray-900 title-font text-lg font-medium">{title}</h2>
                                                 <p className="mt-1 text-md font-semibold">${price}
-                                                    <button className=" flex text-white bg-indigo-500 border-0 py-2 px-6 hover:bg-indigo-600 rounded float">Add to Card</button> </p>
+                                                    <button className=" flex text-white bg-indigo-500 border-0 py-2 px-6 hover:bg-indigo-600 rounded float" onClick={(()=>{handlecard(products)})} disabled ={cardId?true:false}>{cardId ? "View Card" : "Add to Card"}</button> </p>
                                                 {/* <button className="btn">Button</button> */}
                                             </div>
                                             {/* <div className="flex">
                                     <button className="text-white bg-indigo-500 border-0 py-2 px-6 hover:bg-indigo-600 rounded">Add to Card</button>
                                     </div> */}
                                         </div>
-
                                     </>
                                 )
                             })
-
                         }
-
                     </div>
                 </div>
             </section>
             <div className=" flex justify-center pt-3">
-                <button className="text-white bg-indigo-500 border-0 py-3 px-9 focus:outline-none rounded"><Link to={`/allproduct`}> All Product</Link></button>
+            <Link to={`/allproduct`} className="text-white bg-indigo-500 border-0 py-3 px-9 focus:outline-none rounded"> All Product<button className=""></button></Link>
             </div>
-
-
             <Featurescard />
             <section id="blog" className="blog" >
                 <div className="container mx-auto">
