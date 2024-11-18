@@ -9,7 +9,7 @@ const  About = () =>{
                 <div className="container mx-auto">
                     <div className="section-header">
                         <h2 >news and articles</h2>
-                        <p>Always upto date with our latest News and Articles </p>
+                        <p>Always upto date with  latest News and Articles </p>
                     </div>
                     <div className="blog-content">
                         <div className="rows">
